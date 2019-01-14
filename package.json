@@ -1,11 +1,12 @@
 {
-  "name": "y",
+  "name": "fermention",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+    "start": "node index.js"
+    , "stop": "pkill --signal SIGINT myApp"
+},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/adamseidtahir/fermentation.git"

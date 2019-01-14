@@ -1,13 +1,26 @@
+var http = require('http')
+  , fs = require('fs')
+  , options
 
-var express = require('express');
-var app = express();
-var path = require('path');
+options = {
+    host: 'www.google.com'
+  , port: 80
+  , path: '/images/logos/ps_logo2.png'
+}
 
-app.use(express.static('public'))
+var request = http.get(options, function(res){
+    var imagedata = ''
+    res.setEncoding('binary')
 
-// viewed at http://localhost:8080
-app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname + '/index.htm'));
-});
+    res.on('data', function(chunk){
+        imagedata += chunk
+    })
 
-app.listen(8080);
+    res.on('end', function(){
+        fs.writeFile('logo.png', imagedata, 'binary', function(err){
+            if (err) throw err
+            console.log('File saved.')
+        })
+    })
+
+})
